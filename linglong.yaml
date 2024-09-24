@@ -1,0 +1,49 @@
+version: "1"
+
+package:
+  id: io.github.reef
+  name: reef
+  version: 0.0.0.1
+  kind: app
+  description: |
+    A cross platform GUI client for Git written in C++14 using the QT framework.
+
+command:
+  - /opt/apps/io.github.reef/files/bin/reef
+
+base: org.deepin.foundation/23.0.0
+runtime: org.deepin.Runtime/23.0.1
+
+sources:
+  - kind: git
+    url: https://github.com/wjyrich/reef.git
+    version: master
+    commit: 9af95c66fdf07af0f173005017914710fb8f5625
+  - kind: file
+    url: http://security.debian.org/debian-security/pool/updates/main/libg/libgit2/libgit2-dev_0.27.7+dfsg.1-0.2+deb10u2_amd64.deb
+    digest: d741b89c04021c75640a0115483988463a38feec0b9feab3fd9d51b6fe0c2c38
+  - kind: file
+    url: http://security.debian.org/debian-security/pool/updates/main/libg/libgit2/libgit2-27_0.27.7+dfsg.1-0.2+deb10u2_amd64.deb
+    digest: 806c1384ce6b14ccde71bbb2095ebd8d94675582b4f6a4e0930ddf8080001bfd
+  - kind: file
+    url: http://security.debian.org/debian-security/pool/updates/main/m/mbedtls/libmbedcrypto3_2.16.9-0~deb10u1_amd64.deb
+    digest: d9e482a9656c0efe91a6efb376503640d95f85494e35bee085f7a4c78f590576
+  - kind: file
+    url: http://security.debian.org/debian-security/pool/updates/main/m/mbedtls/libmbedtls12_2.16.9-0~deb10u1_amd64.deb
+    digest: ad634fd0bc96f884eab58d439b80da709c29cd361f0bd4c52669f1d837eec6b6
+  - kind: file
+    url: http://security.debian.org/debian-security/pool/updates/main/m/mbedtls/libmbedx509-0_2.16.9-0~deb10u1_amd64.deb
+    digest: c9eb85897a0142105bda9d5399acc930ae76aa2f084486bde16da27e7dc3d1e1
+  - kind: file
+    url: http://security.debian.org/debian-security/pool/updates/main/h/http-parser/libhttp-parser2.8_2.8.1-1+deb10u3_amd64.deb
+    digest: a092557bf119ac982e63ea37588eb621b3552b58f3b3899dfa22727859926b86
+build: |
+  bash ./install_dep linglong/sources $PREFIX
+  
+  cd /project/linglong/sources/reef.git
+  git apply ../../../0001-install.patch
+  mkdir -p build
+  cd build
+  cmake .. \
+        -DCMAKE_INSTALL_PREFIX=${PREFIX}
+  cmake --build . --target install -j$(nproc --all)
