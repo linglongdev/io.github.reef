@@ -1,0 +1,25 @@
+From 410631b72711904663cd44125283f4af3271fb16 Mon Sep 17 00:00:00 2001
+From: wjyrich <1071633242@qq.com>
+Date: Thu, 19 Sep 2024 18:56:09 +0800
+Subject: [PATCH] install
+
+---
+ src/CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 56aca13..9d44792 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -43,7 +43,7 @@ target_link_libraries(reef PRIVATE
+ )
+ 
+ # Install targets
+-install(TARGETS reef CONFIGURATIONS Release RUNTIME DESTINATION bin)
++install(TARGETS reef  DESTINATION bin)
+ install(FILES ${CMAKE_SOURCE_DIR}/data/ca.amorim.reef.desktop DESTINATION share/applications)
+ install(FILES ${CMAKE_SOURCE_DIR}/data/ca.amorim.reef.appdata.xml DESTINATION share/metainfo)
+ install(FILES reef.png DESTINATION share/icons)
+-- 
+2.43.4
+
